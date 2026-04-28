@@ -3,24 +3,10 @@ import { useState } from "react";
 const C = {
   navy: "#0e1e3f", navyDark: "#0a1628", gold: "#c9a84c", goldLight: "#e2c97e",
   goldDark: "#a07830", white: "#ffffff", offWhite: "#f9f8f5", gray: "#6b7280",
-  lightGray: "#e5e7eb", darkGray: "#374151", text: "#1a1a2e",
+  lightGray: "#e5e7eb", darkGray: "#374151",
 };
 
 const ADMIN_PW = "srb2024";
-
-// Fotos reais enviadas pelo usuário
-const FOTOS = {
-  edificio: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Camponotus_flavomarginatus_ant.jpg/320px-Camponotus_flavomarginatus_ant.jpg", // placeholder
-  interior: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Camponotus_flavomarginatus_ant.jpg/320px-Camponotus_flavomarginatus_ant.jpg",
-  apto: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Camponotus_flavomarginatus_ant.jpg/320px-Camponotus_flavomarginatus_ant.jpg",
-};
-
-// Componente que aceita arquivo de imagem e exibe preview
-// Como as imagens foram enviadas no chat, vamos usar um ImageProvider com blob
-// e as fotos serão carregadas dinamicamente pelo usuário no admin
-
-// Para demonstração real, usamos as imagens do chat convertidas em data URLs
-// O componente App vai capturar e injetar as fotos reais
 
 const SRBLogo = ({ size = 48 }) => (
   <svg width={size} height={size * 1.1} viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +44,9 @@ const SRBLogo = ({ size = 48 }) => (
     <polygon points="25,80 50,58 75,80" fill="url(#gg)"/>
     <defs>
       <linearGradient id="gg" x1="25" y1="80" x2="75" y2="58" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stopColor={C.goldDark}/><stop offset="50%" stopColor={C.goldLight}/><stop offset="100%" stopColor={C.goldDark}/>
+        <stop offset="0%" stopColor={C.goldDark}/>
+        <stop offset="50%" stopColor={C.goldLight}/>
+        <stop offset="100%" stopColor={C.goldDark}/>
       </linearGradient>
     </defs>
     <line x1="10" y1="82" x2="90" y2="82" stroke={C.gold} strokeWidth="1.5"/>
@@ -75,7 +63,7 @@ const Wave = ({ w = 160 }) => (
 const NavBar = ({ page, setPage, adminAuth }) => (
   <nav style={{ background: C.navy, position: "sticky", top: 0, zIndex: 100, boxShadow: "0 2px 20px rgba(0,0,0,0.4)" }}>
     <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }} onClick={() => setPage("home")}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }} onClick={() => setPage("home")}>
         <SRBLogo size={38} />
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
           <div style={{ color: C.white, fontFamily: "Georgia,'Times New Roman',serif", fontWeight: 700, fontSize: 20, letterSpacing: 3, lineHeight: 1, whiteSpace: "nowrap" }}>SRB</div>
@@ -100,7 +88,7 @@ const Footer = ({ setPage }) => (
           <SRBLogo size={36} />
           <div>
             <div style={{ color:C.white, fontFamily:"Georgia,serif", fontWeight:700, fontSize:18, letterSpacing:2 }}>SRB</div>
-            <div style={{ color:C.gold, fontSize:9, letterSpacing:3 }}>I M O B I L I Á R I A</div>
+            <div style={{ color:C.gold, fontSize:9, letterSpacing:3 }}>IMOBILIÁRIA</div>
           </div>
         </div>
         <p style={{ color:"#7a8aaa", fontSize:13, lineHeight:1.8, margin:0 }}>Especialistas em compra, venda e administração de imóveis no Rio de Janeiro.</p>
@@ -120,13 +108,13 @@ const Footer = ({ setPage }) => (
     </div>
     <div style={{ maxWidth:1200, margin:"0 auto", padding:"16px 24px", borderTop:"1px solid rgba(255,255,255,0.06)", textAlign:"center" }}>
       <Wave w={200} />
-      <div style={{ color:"#4a5568", fontSize:11, marginTop:8 }}>© 2025 SRB Imóveis · ADMINISTRAÇÃO · VENDAS · Todos os direitos reservados</div>
+      <div style={{ color:"#4a5568", fontSize:11, marginTop:8 }}>© 2025 SRB Imobiliária · ADMINISTRAÇÃO · VENDAS · Todos os direitos reservados</div>
     </div>
   </footer>
 );
 
 const WA = () => (
-  <a href="https://wa.me/5521999999999" target="_blank" style={{ position:"fixed", bottom:24, right:24, background:"#25d366", color:"#fff", borderRadius:"50%", width:58, height:58, display:"flex", alignItems:"center", justifyContent:"center", fontSize:28, textDecoration:"none", boxShadow:"0 4px 20px rgba(37,211,102,0.5)", zIndex:200 }}>💬</a>
+  <a href="https://wa.me/5521999999999" target="_blank" rel="noreferrer" style={{ position:"fixed", bottom:24, right:24, background:"#25d366", color:"#fff", borderRadius:"50%", width:58, height:58, display:"flex", alignItems:"center", justifyContent:"center", fontSize:28, textDecoration:"none", boxShadow:"0 4px 20px rgba(37,211,102,0.5)", zIndex:200 }}>💬</a>
 );
 
 const fmtFull = v => `R$ ${Number(v).toLocaleString("pt-BR")}`;
@@ -137,10 +125,8 @@ const Badge = ({ label, venda }) => (
 
 const ImgWithFallback = ({ src, alt, style }) => {
   const [err, setErr] = useState(false);
-  return err || !src
-    ? <div style={{ ...style, background:`linear-gradient(135deg, #1a2744 0%, #2a3f6b 100%)`, display:"flex", alignItems:"center", justifyContent:"center" }}>
-        <SRBLogo size={40} />
-      </div>
+  return (err || !src)
+    ? <div style={{ ...style, background:`linear-gradient(135deg, #1a2744 0%, #2a3f6b 100%)`, display:"flex", alignItems:"center", justifyContent:"center" }}><SRBLogo size={40} /></div>
     : <img src={src} alt={alt} style={style} onError={() => setErr(true)} />;
 };
 
@@ -166,7 +152,6 @@ const Card = ({ im, setPage, setSelectedImovel }) => (
   </div>
 );
 
-// ─── Pages ────────────────────────────────────────────────────────────────────
 const Home = ({ imoveis, setPage, setSelectedImovel }) => {
   const destaques = imoveis.filter(i => i.destaque).slice(0,3);
   return (
@@ -181,11 +166,18 @@ const Home = ({ imoveis, setPage, setSelectedImovel }) => {
           <h1 style={{ color:C.white, fontSize:"clamp(26px,5vw,50px)", fontFamily:"Georgia,serif", fontWeight:700, margin:"0 0 16px", lineHeight:1.2 }}>Seu próximo imóvel começa aqui</h1>
           <p style={{ color:"#8a9bc0", fontSize:16, marginBottom:40, lineHeight:1.7 }}>Especialistas em compra, venda e administração de imóveis no Rio de Janeiro</p>
           <div style={{ background:"rgba(255,255,255,0.95)", borderRadius:12, padding:"14px 16px", display:"flex", flexWrap:"wrap", gap:10, alignItems:"center", boxShadow:"0 8px 32px rgba(0,0,0,0.3)" }}>
-            {[["finalidade",[["","Finalidade"],["Venda","Comprar"],["Aluguel","Alugar"]]],["tipo",[["","Tipo de imóvel"],["Apartamento","Apartamento"],["Casa","Casa"],["Terreno","Terreno"],["Comercial","Comercial"]]]].map(([k,opts]) => (
-              <select key={k} style={{ border:`1px solid ${C.lightGray}`, borderRadius:8, padding:"10px 12px", fontSize:14, flex:1, minWidth:130, color:C.darkGray, background:C.white }}>
-                {opts.map(([v,l]) => <option key={v} value={v}>{l}</option>)}
-              </select>
-            ))}
+            <select style={{ border:`1px solid ${C.lightGray}`, borderRadius:8, padding:"10px 12px", fontSize:14, flex:1, minWidth:130, color:C.darkGray, background:C.white }}>
+              <option value="">Finalidade</option>
+              <option value="Venda">Comprar</option>
+              <option value="Aluguel">Alugar</option>
+            </select>
+            <select style={{ border:`1px solid ${C.lightGray}`, borderRadius:8, padding:"10px 12px", fontSize:14, flex:1, minWidth:130, color:C.darkGray, background:C.white }}>
+              <option value="">Tipo de imóvel</option>
+              <option>Apartamento</option>
+              <option>Casa</option>
+              <option>Terreno</option>
+              <option>Comercial</option>
+            </select>
             <input placeholder="Bairro ou cidade" style={{ border:`1px solid ${C.lightGray}`, borderRadius:8, padding:"10px 12px", fontSize:14, flex:2, minWidth:140, color:C.darkGray }} />
             <button onClick={() => setPage("imoveis")} style={{ background:`linear-gradient(135deg,${C.gold},${C.goldDark})`, color:C.navy, border:"none", borderRadius:8, padding:"10px 24px", fontWeight:700, cursor:"pointer", fontSize:14 }}>Buscar</button>
           </div>
@@ -246,11 +238,15 @@ const ImoveisPage = ({ imoveis, setPage, setSelectedImovel }) => {
           <h1 style={{ color:C.white, fontFamily:"Georgia,serif", margin:"0 0 6px", fontSize:28, fontWeight:700 }}>Nossos Imóveis</h1>
           <p style={{ color:"#7a8aaa", margin:"0 0 24px", fontSize:14 }}>{imoveis.length} imóvel(is) disponíveis</p>
           <div style={{ display:"flex", flexWrap:"wrap", gap:10 }}>
-            {[["finalidade",[["","Finalidade"],["Venda","Comprar"],["Aluguel","Alugar"]]],["tipo",[["","Tipo"],["Apartamento","Apartamento"],["Casa","Casa"],["Terreno","Terreno"],["Comercial","Comercial"]]]].map(([k,opts]) => (
-              <select key={k} value={f[k]} onChange={e => setF({...f,[k]:e.target.value})} style={{ border:`1px solid rgba(201,168,76,0.3)`, borderRadius:8, padding:"10px 14px", fontSize:13, background:"rgba(255,255,255,0.07)", color:C.white, minWidth:130 }}>
-                {opts.map(([v,l]) => <option key={v} value={v} style={{ color:C.darkGray }}>{l}</option>)}
-              </select>
-            ))}
+            <select value={f.finalidade} onChange={e => setF({...f,finalidade:e.target.value})} style={{ border:`1px solid rgba(201,168,76,0.3)`, borderRadius:8, padding:"10px 14px", fontSize:13, background:"rgba(255,255,255,0.07)", color:C.white, minWidth:130 }}>
+              <option value="" style={{ color:C.darkGray }}>Finalidade</option>
+              <option value="Venda" style={{ color:C.darkGray }}>Comprar</option>
+              <option value="Aluguel" style={{ color:C.darkGray }}>Alugar</option>
+            </select>
+            <select value={f.tipo} onChange={e => setF({...f,tipo:e.target.value})} style={{ border:`1px solid rgba(201,168,76,0.3)`, borderRadius:8, padding:"10px 14px", fontSize:13, background:"rgba(255,255,255,0.07)", color:C.white, minWidth:130 }}>
+              <option value="" style={{ color:C.darkGray }}>Tipo</option>
+              {["Apartamento","Casa","Terreno","Comercial"].map(o => <option key={o} value={o} style={{ color:C.darkGray }}>{o}</option>)}
+            </select>
             <input placeholder="🔍 Bairro ou cidade" value={f.bairro} onChange={e => setF({...f,bairro:e.target.value})} style={{ border:`1px solid rgba(201,168,76,0.3)`, borderRadius:8, padding:"10px 14px", fontSize:13, background:"rgba(255,255,255,0.07)", color:C.white, minWidth:160 }} />
             <input placeholder="Valor máx (R$)" type="number" value={f.valorMax} onChange={e => setF({...f,valorMax:e.target.value})} style={{ border:`1px solid rgba(201,168,76,0.3)`, borderRadius:8, padding:"10px 14px", fontSize:13, background:"rgba(255,255,255,0.07)", color:C.white, minWidth:160 }} />
           </div>
@@ -279,9 +275,9 @@ const ImovelDetail = ({ im, setPage }) => {
             <ImgWithFallback src={fotos[mainFoto] || im.foto} alt={im.titulo} style={{ width:"100%", height:400, objectFit:"cover", borderRadius:12, marginBottom:12 }} />
             {fotos.length > 1 && (
               <div style={{ display:"flex", gap:8, marginBottom:20 }}>
-                {fotos.map((f,i) => (
+                {fotos.map((ft,i) => (
                   <div key={i} onClick={() => setMainFoto(i)} style={{ cursor:"pointer", borderRadius:8, overflow:"hidden", border: mainFoto===i ? `2px solid ${C.gold}` : "2px solid transparent" }}>
-                    <ImgWithFallback src={f} alt="" style={{ width:80, height:56, objectFit:"cover" }} />
+                    <ImgWithFallback src={ft} alt="" style={{ width:80, height:56, objectFit:"cover" }} />
                   </div>
                 ))}
               </div>
@@ -301,7 +297,7 @@ const ImovelDetail = ({ im, setPage }) => {
             <div style={{ marginBottom:8 }}><Badge label={im.finalidade} venda={im.finalidade==="Venda"} /></div>
             <div style={{ color:C.gold, fontSize:28, fontWeight:900, margin:"8px 0 4px" }}>{fmtFull(im.valor)}{im.finalidade==="Aluguel" ? <span style={{ fontSize:14 }}>/mês</span> : ""}</div>
             <div style={{ color:C.gray, fontSize:12, marginBottom:24 }}>Ref. #SRB{String(im.id).padStart(4,"0")}</div>
-            <a href={`https://wa.me/5521999999999?text=Olá! Tenho interesse no imóvel: ${im.titulo}`} target="_blank" style={{ display:"block", background:"#25d366", color:C.white, textDecoration:"none", textAlign:"center", borderRadius:8, padding:"13px", fontWeight:700, fontSize:14, marginBottom:10 }}>💬 Falar no WhatsApp</a>
+            <a href={`https://wa.me/5521999999999?text=Olá! Tenho interesse no imóvel: ${im.titulo}`} target="_blank" rel="noreferrer" style={{ display:"block", background:"#25d366", color:C.white, textDecoration:"none", textAlign:"center", borderRadius:8, padding:"13px", fontWeight:700, fontSize:14, marginBottom:10 }}>💬 Falar no WhatsApp</a>
             <button onClick={() => setPage("contato")} style={{ display:"block", width:"100%", background:C.navy, color:C.white, border:"none", borderRadius:8, padding:"13px", fontWeight:700, fontSize:14, cursor:"pointer" }}>✉ Solicitar Contato</button>
           </div>
         </div>
@@ -315,7 +311,7 @@ const Sobre = () => (
     <div style={{ background:C.navy, padding:"60px 20px", textAlign:"center" }}>
       <SRBLogo size={60} />
       <div style={{ color:C.gold, fontSize:11, letterSpacing:3, margin:"14px 0 6px" }}>QUEM SOMOS</div>
-      <h1 style={{ color:C.white, fontFamily:"Georgia,serif", fontSize:30, fontWeight:700, margin:0 }}>Sobre a SRB Imóveis</h1>
+      <h1 style={{ color:C.white, fontFamily:"Georgia,serif", fontSize:30, fontWeight:700, margin:0 }}>Sobre a SRB Imobiliária</h1>
       <div style={{ display:"flex", justifyContent:"center", marginTop:16 }}><Wave w={120} /></div>
     </div>
     <div style={{ maxWidth:900, margin:"0 auto", padding:"60px 20px" }}>
@@ -323,7 +319,7 @@ const Sobre = () => (
         <div>
           <div style={{ color:C.gold, fontSize:11, letterSpacing:2, marginBottom:8 }}>NOSSA HISTÓRIA</div>
           <h2 style={{ color:C.navy, fontFamily:"Georgia,serif", fontSize:22, fontWeight:700, marginBottom:18 }}>Especialistas no mercado imobiliário carioca</h2>
-          <p style={{ color:C.darkGray, lineHeight:1.9, fontSize:15, marginBottom:14 }}>A SRB Imóveis nasceu da combinação de expertise jurídica e profundo conhecimento do mercado imobiliário do Rio de Janeiro. Atuamos com foco em leilões judiciais e extrajudiciais, além de compra, venda e administração de imóveis.</p>
+          <p style={{ color:C.darkGray, lineHeight:1.9, fontSize:15, marginBottom:14 }}>A SRB Imobiliária nasceu da combinação de expertise jurídica e profundo conhecimento do mercado imobiliário do Rio de Janeiro. Atuamos com foco em leilões judiciais e extrajudiciais, além de compra, venda e administração de imóveis.</p>
           <p style={{ color:C.darkGray, lineHeight:1.9, fontSize:15 }}>Nossa missão é conectar pessoas a imóveis com segurança, transparência e resultado. Cada operação é conduzida com rigorosa análise jurídica e de mercado.</p>
         </div>
         <div style={{ background:C.navy, borderRadius:12, padding:28 }}>
@@ -415,7 +411,7 @@ const Contato = () => {
               <div><div style={{ color:C.gold, fontWeight:700, fontSize:12 }}>{l}</div><div style={{ color:C.darkGray, fontSize:14, marginTop:2 }}>{v}</div></div>
             </div>
           ))}
-          <a href="https://wa.me/5521999999999" target="_blank" style={{ display:"inline-flex", alignItems:"center", gap:8, background:"#25d366", color:C.white, textDecoration:"none", borderRadius:8, padding:"12px 22px", fontWeight:700, fontSize:14 }}>💬 WhatsApp Direto</a>
+          <a href="https://wa.me/5521999999999" target="_blank" rel="noreferrer" style={{ display:"inline-flex", alignItems:"center", gap:8, background:"#25d366", color:C.white, textDecoration:"none", borderRadius:8, padding:"12px 22px", fontWeight:700, fontSize:14 }}>💬 WhatsApp Direto</a>
         </div>
         <div style={{ background:C.white, borderRadius:12, padding:28, boxShadow:"0 4px 20px rgba(0,0,0,0.08)", border:`1px solid rgba(201,168,76,0.12)` }}>
           {sent ? (
@@ -441,7 +437,6 @@ const Contato = () => {
   );
 };
 
-// ─── Admin ────────────────────────────────────────────────────────────────────
 const Admin = ({ imoveis, setImoveis, posts, setPosts }) => {
   const [tab, setTab] = useState("imoveis");
   const [editIm, setEditIm] = useState(null);
@@ -460,15 +455,12 @@ const Admin = ({ imoveis, setImoveis, posts, setPosts }) => {
     editP.id ? setPosts(p => p.map(i => i.id===editP.id ? editP : i)) : setPosts(p => [...p, { ...editP, id:Date.now() }]);
     setEditP(null);
   };
-
-  // Upload de foto para base64
   const handleFotoUpload = (key, file) => {
     if (!file) return;
     const r = new FileReader();
     r.onload = e => setEditIm(prev => ({ ...prev, [key]: e.target.result }));
     r.readAsDataURL(file);
   };
-
   const Inp = ({ ph, k, obj, set, type="text" }) => (
     <input type={type} placeholder={ph} value={obj[k]||""} onChange={e => set({...obj,[k]:e.target.value})} style={{ width:"100%", border:`1px solid ${C.lightGray}`, borderRadius:8, padding:"10px 12px", fontSize:14, marginBottom:10, boxSizing:"border-box" }} />
   );
@@ -477,14 +469,13 @@ const Admin = ({ imoveis, setImoveis, posts, setPosts }) => {
     <div style={{ background:C.offWhite, minHeight:"80vh", padding:"30px 20px" }}>
       <div style={{ maxWidth:1000, margin:"0 auto" }}>
         <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:26 }}>
-          <SRBLogo size={32} /><div style={{ color:C.navy, fontFamily:"Georgia,serif", fontWeight:700, fontSize:20 }}>Painel Admin</div>
+          <SRBLogo size={32} /><div style={{ color:C.navy, fontFamily:"Georgia,serif", fontWeight:700, fontSize:20 }}>Painel Admin — SRB Imobiliária</div>
         </div>
         <div style={{ display:"flex", gap:8, marginBottom:24 }}>
           {[["imoveis","🏠 Imóveis"],["blog","📝 Blog"]].map(([k,l]) => (
-            <button key={k} onClick={() => setTab(k)} style={{ background: tab===k ? C.navy : C.white, color: tab===k ? C.white : C.navy, border:`1.5px solid ${C.navy}`, borderRadius:8, padding:"8px 20px", cursor:"pointer", fontWeight:600, fontSize:13 }}>{l}</button>
+            <button key={k} onClick={() => setTab(k)} style={{ background:tab===k ? C.navy : C.white, color:tab===k ? C.white : C.navy, border:`1.5px solid ${C.navy}`, borderRadius:8, padding:"8px 20px", cursor:"pointer", fontWeight:600, fontSize:13 }}>{l}</button>
           ))}
         </div>
-
         {tab==="imoveis" && <>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:14 }}>
             <div style={{ color:C.navy, fontWeight:600 }}>{imoveis.length} imóvel(is)</div>
@@ -509,7 +500,6 @@ const Admin = ({ imoveis, setImoveis, posts, setPosts }) => {
                 <Inp ph="Banheiros" k="banheiros" obj={editIm} set={setEditIm} type="number" />
                 <Inp ph="Vagas" k="vagas" obj={editIm} set={setEditIm} type="number" />
               </div>
-              {/* Upload fotos */}
               <div style={{ marginBottom:14 }}>
                 <div style={{ color:C.navy, fontWeight:600, fontSize:13, marginBottom:10 }}>📷 Fotos do imóvel</div>
                 <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10 }}>
@@ -546,7 +536,6 @@ const Admin = ({ imoveis, setImoveis, posts, setPosts }) => {
             </div>
           ))}
         </>}
-
         {tab==="blog" && <>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:14 }}>
             <div style={{ color:C.navy, fontWeight:600 }}>{posts.length} artigo(s)</div>
@@ -590,7 +579,7 @@ const LoginAdmin = ({ onLogin }) => {
       <div style={{ background:C.white, borderRadius:14, padding:40, boxShadow:"0 8px 32px rgba(0,0,0,0.12)", width:320, textAlign:"center", border:`1px solid rgba(201,168,76,0.15)` }}>
         <SRBLogo size={52} />
         <h2 style={{ color:C.navy, fontFamily:"Georgia,serif", margin:"16px 0 6px" }}>Acesso Admin</h2>
-        <div style={{ color:C.gold, fontSize:11, letterSpacing:2, marginBottom:24 }}>SRB IMÓVEIS</div>
+        <div style={{ color:C.gold, fontSize:11, letterSpacing:2, marginBottom:24 }}>SRB IMOBILIÁRIA</div>
         <input type="password" placeholder="Senha" value={pw} onChange={e => { setPw(e.target.value); setErr(false); }} style={{ width:"100%", border:`1px solid ${err?"#ef4444":C.lightGray}`, borderRadius:8, padding:"11px 14px", fontSize:14, marginBottom:12, boxSizing:"border-box" }} onKeyDown={e => e.key==="Enter" && (pw===ADMIN_PW ? onLogin() : setErr(true))} />
         {err && <div style={{ color:"#ef4444", fontSize:13, marginBottom:10 }}>Senha incorreta</div>}
         <button onClick={() => pw===ADMIN_PW ? onLogin() : setErr(true)} style={{ width:"100%", background:`linear-gradient(135deg,${C.navy},#0a1628)`, color:C.white, border:"none", borderRadius:8, padding:"12px", fontWeight:700, cursor:"pointer", fontSize:15 }}>Entrar</button>
@@ -600,59 +589,20 @@ const LoginAdmin = ({ onLogin }) => {
   );
 };
 
-// ─── Dados iniciais com fotos reais (base64 será injetado via useEffect) ───────
 export default function App() {
-  // Fotos enviadas pelo usuário — carregadas via fetch das imagens do chat
-  const [fotosReais, setFotosReais] = useState({});
-
-  // As 3 imagens enviadas são: edificio (img1), interior (img2), apto (img3)
-  // Como estão no chat e não em URLs públicas, usamos as fotos de alta qualidade do Unsplash
-  // que correspondem visualmente ao que foi enviado, até o site ser hospedado com as fotos reais
-
   const [imoveis, setImoveis] = useState([
-    {
-      id: 1,
-      titulo: "Edifício Residencial Alto Padrão — Icaraí",
-      tipo: "Apartamento", finalidade: "Venda", valor: 1850000,
-      bairro: "Icaraí", cidade: "Niterói",
-      area: 150, quartos: 3, banheiros: 3, vagas: 2,
-      descricao: "Elegante edifício residencial de alto padrão em Icaraí, Niterói. Arquitetura contemporânea com fachada em vidro e pedra natural, palmeiras no acesso e acabamento refinado. Próximo à orla, condomínio com segurança 24h e infraestrutura completa de lazer.",
-      destaque: true,
-      foto: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
-    },
-    {
-      id: 2,
-      titulo: "Cobertura Alto Padrão — Barra da Tijuca",
-      tipo: "Apartamento", finalidade: "Venda", valor: 3200000,
-      bairro: "Barra da Tijuca", cidade: "Rio de Janeiro",
-      area: 280, quartos: 4, banheiros: 4, vagas: 3,
-      descricao: "Cobertura de altíssimo padrão na Barra da Tijuca. Sala integrada com iluminação linear de teto, piso porcelanato de grandes dimensões, varanda com vista panorâmica para área verde. Cozinha gourmet equipada, suítes com closet. Condomínio com lazer completo e segurança 24h.",
-      destaque: true,
-      foto: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
-      foto2: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80",
-    },
-    {
-      id: 3,
-      titulo: "Apartamento 2 Quartos Reformado — Barra da Tijuca",
-      tipo: "Apartamento", finalidade: "Venda", valor: 580000,
-      bairro: "Barra da Tijuca", cidade: "Rio de Janeiro",
-      area: 72, quartos: 2, banheiros: 1, vagas: 1,
-      descricao: "Apartamento completamente reformado em condomínio bem localizado na Barra da Tijuca. Piso em madeira, iluminação natural generosa, sacada integrada à sala. Próximo a escolas, supermercados e vias de acesso. Excelente para moradia ou investimento.",
-      destaque: false,
-      foto: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80",
-    },
+    { id:1, titulo:"Edifício Residencial Alto Padrão — Icaraí", tipo:"Apartamento", finalidade:"Venda", valor:1850000, bairro:"Icaraí", cidade:"Niterói", area:150, quartos:3, banheiros:3, vagas:2, descricao:"Elegante edifício residencial de alto padrão em Icaraí, Niterói. Arquitetura contemporânea com fachada em vidro e pedra natural, palmeiras no acesso e acabamento refinado. Próximo à orla, condomínio com segurança 24h e infraestrutura completa de lazer.", destaque:true, foto:"https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80" },
+    { id:2, titulo:"Cobertura Alto Padrão — Barra da Tijuca", tipo:"Apartamento", finalidade:"Venda", valor:3200000, bairro:"Barra da Tijuca", cidade:"Rio de Janeiro", area:280, quartos:4, banheiros:4, vagas:3, descricao:"Cobertura de altíssimo padrão na Barra da Tijuca. Sala integrada com iluminação linear de teto, piso porcelanato de grandes dimensões, varanda com vista panorâmica para área verde. Cozinha gourmet equipada, suítes com closet. Condomínio com lazer completo e segurança 24h.", destaque:true, foto:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80", foto2:"https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" },
+    { id:3, titulo:"Apartamento 2 Quartos Reformado — Barra da Tijuca", tipo:"Apartamento", finalidade:"Venda", valor:580000, bairro:"Barra da Tijuca", cidade:"Rio de Janeiro", area:72, quartos:2, banheiros:1, vagas:1, descricao:"Apartamento completamente reformado em condomínio bem localizado na Barra da Tijuca. Piso em madeira, iluminação natural generosa, sacada integrada à sala. Próximo a escolas, supermercados e vias de acesso.", destaque:false, foto:"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80" },
   ]);
-
   const [posts, setPosts] = useState([
     { id:1, titulo:"Como funciona a compra de imóveis em leilão?", resumo:"Entenda o passo a passo para adquirir um imóvel em leilão judicial ou extrajudicial com segurança.", conteudo:"Comprar imóveis em leilão pode ser uma excelente oportunidade de adquirir propriedades abaixo do valor de mercado. No entanto, é preciso seguir algumas etapas essenciais para garantir uma aquisição segura e sem surpresas.\n\nPrimeiro, é fundamental realizar uma análise jurídica completa do imóvel antes de dar o lance. Isso inclui verificar a matrícula no cartório de registro de imóveis, checar se há dívidas de IPTU ou condomínio, e avaliar se existe alguma ocupação no imóvel.\n\nApós o arremate, inicia-se o processo de regularização, que pode incluir a emissão da carta de arrematação, o recolhimento do ITBI e o registro na matrícula. Com a documentação em ordem, o imóvel está pronto para ser transferido ou comercializado.", data:"15/03/2025", foto:"https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80" },
     { id:2, titulo:"Documentação necessária para compra de imóvel", resumo:"Saiba quais documentos você precisa separar para garantir uma transação imobiliária tranquila e segura.", conteudo:"A compra de um imóvel envolve uma série de documentos tanto do comprador quanto do vendedor e do próprio imóvel. Estar preparado com toda a documentação necessária agiliza o processo e evita contratempos.\n\nDo comprador: RG, CPF, comprovante de renda, comprovante de residência, certidão de estado civil e declaração de Imposto de Renda.\n\nDo imóvel: matrícula atualizada, certidão de ônus reais, certidão negativa de débitos municipais (IPTU), habite-se e planta aprovada pela prefeitura.", data:"28/02/2025", foto:"https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&q=80" },
   ]);
-
   const [page, setPage] = useState("home");
   const [selIm, setSelIm] = useState(null);
   const [selPost, setSelPost] = useState(null);
   const [adminAuth, setAdminAuth] = useState(false);
-
   const go = p => { setPage(p); window.scrollTo(0,0); };
 
   return (
