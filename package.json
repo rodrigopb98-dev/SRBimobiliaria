@@ -1,18 +1,18 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0e1e3f" />
-    <meta name="description" content="SRB Imobiliária — Especialistas em compra, venda e administração de imóveis no Rio de Janeiro." />
-    <title>SRB Imobiliária</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font-family: 'Segoe UI', system-ui, sans-serif; }
-      select option { color: #374151; background: #fff; }
-    </style>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
-</html>
+{
+  "name": "srb-imobiliaria",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "browserslist": {
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version"]
+  }
+}
